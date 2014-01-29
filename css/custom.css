@@ -83,7 +83,8 @@ hr {
 }
 
 body {
-    background: radial-gradient(rgb(0, 138, 116), rgb(46, 85, 104));
+   background: radial-gradient(rgb(151, 184, 178), rgb(42, 54, 60));
+   /*background: radial-gradient(rgb(0, 138, 116), rgb(46, 85, 104));*/
  }
 
 canvas {
