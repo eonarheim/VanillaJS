@@ -50,6 +50,21 @@ hr {
     margin-bottom: 10%;
 }
 
+.space {
+   display: flex
+   display: -webkit-flex;
+   flex-flow: column nowrap;
+}
+
+.space > li {
+   -webkit-flex: 1 1 auto;
+   flex: 1 1 auto;
+   width: auto; 
+   align-self: auto;
+   min-height: 30px;
+
+}
+
 .border {
     padding: 5px;
     background: black;
@@ -64,7 +79,8 @@ hr {
     height: 700px;
     padding: 40px 60px;
     color: rgb(44, 44, 44);
-    background-color: rgb(163, 163, 163);
+    background-color: rgb(196, 196, 175);
+    /*background-color: rgb(163, 163, 163);*/
     border: 5px solid rgba(0, 0, 0, 0.83);
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
