@@ -314,39 +314,28 @@ Logger.prototype.info = function(){
          <div id="javascript-patterns-inheritance" class="step slide" data-x="0" data-y="-6000">
             <p><b>Wielding JavaScript: "Classical" Inheritance</b></p>
             <hr>
-            <div id="inheritance-editor" class="code-editor">var Class = function(){  
-};
+            <div id="inheritance-editor" class="code-editor">var Class = function(){};
 
-Class.extend = function(methods){
-    var subclass = function(){
-        this['_super'].apply(this, Array.prototype.slice.call(arguments));
-        if(this['init']){
-            this['init'].apply(this, Array.prototype.slice.call(arguments));
-        }
-    };
+Class.extend = function(props){
+   var _super = this.prototype;
+   var SubClass = function(){
+      if(this.init){
+         this.init.apply(this, Array.prototype.slice.call(arguments));
+      }
+   };       
     
-    var mixin = function(dest, source){
-        for(var p in source){
-            if(source.hasOwnProperty(p)){
-                dest[p] = source[p];
-            }
-        }
-        function subclass(){
-            this.constructor = dest;
-        }
-        subclass.prototype = source.prototype;
-        dest.prototype = new subclass();
-    }
+   // Create our super class and populate
+   var SuperClass = new this();    
+   for(var prop in props){
+      SuperClass[prop] = props[prop];
+   } 
+
+   SubClass.prototype.constructor = SubClass;
+   SubClass.prototype = SuperClass;
+   SubClass.prototype._super = SuperClass;
+   SubClass.extend = Class.extend;
     
-    var clazz = this;
-    mixin(subclass, clazz);
-    for(var method in methods){
-        subclass.prototype[method] = methods[method];
-    }
-    subclass.prototype["_super"] = clazz;
-    subclass.prototype["super"] = clazz.prototype;
-    
-    return subclass;
+   return SubClass;
 };</div>
             <button id="btn-inheritance" class="btn btn-primary right">Run!</button>
          </div>
@@ -354,7 +343,15 @@ Class.extend = function(methods){
          <div id="javascript-patterns-interfaces" class="step slide" data-x="0" data-y="-7500">
             <p><b>Wielding JavaScript: Enforcing Interfaces</b></p>
             <hr>
-            <div id="interfaces-editor" class="code-editor"></div>
+            <div id="interfaces-editor" class="code-editor">Class.implements = function(methods){
+   for(var i = 0; i < methods.length; i++){
+      var method = methods[i];
+      if(!this.prototype[method] || typeof this.prototype[method] !== "function"){
+         throw new Error("Object does not implement " + method);
+      }
+   }
+   return true;
+};</div>
             <button id="btn-interfaces" class="btn btn-primary right">Run!</button>
          </div>
 
