@@ -6,6 +6,20 @@
 		<link rel="stylesheet" type="text/css" href="css/presentation.css">
 		<link rel="stylesheet" type="text/css" href="css/custom.css">
       <link rel="icon" type="image/x-icon" href="favicon.png" />
+      <!-- 
+         The philosophy of VanillaJS is to avoid using JavaScript libraries when native JavaScript can be used to achieve the same goal. JavaScript provides a wide range of capabilities that truly make it a first class language for application development.
+
+         In this talk we will learn about:
+
+         Writing fast native JavaScript
+         When to use a library
+         How to easily replicate jQuery in native JavaScript
+         Leveraging the functional nature of JavaScript
+         Patterns such as the "revealing prototype pattern"
+         The future of JavaScript in EcmaScript6
+         Come learn the magic you need to become a VanillaJS JavaScript developer!
+
+         -->
 
 	</head>
 
@@ -40,57 +54,347 @@
          <div id="vanilla-js" class="step slide" data-x="-1500" data-y="1500">
             <p><b>What is Vanilla JS?</b></p>
             <hr>
-            <ul class="space">
-               <li>Embraces Native JS</li>
-               <li>Not a library</li>
-               <li>Counter Culture</li>
-               <li>Making educated choices</li>
+
+            <img src="images/js-big.png" class="border" style="width: 400px; margin: auto; display: block">
+            <ul>
+               <!-- <li class="space10">Not a library</li>
+               <li class="space10">Embraces Native JS</li>
+               <li class="space10">Vanilla is the new black</li>
+               <li class="space10">Making educated choices</li> -->
             </ul>
-
-
-         </div>
-         <div id="library-decision" class="step slide" data-x="-1500" data-y="3000">
-            <p><b>When do you need a library?</b></p>
-            <hr>
-
-
-         </div>
-         <div id="the-jquery-question" class="step slide" data-x="-1500" data-y="4500">
-            <p><b>So we shouldn't use jQuery right?</b></p>
-            <hr>
-            <h1>NO!</h1>
-
-         </div>
-         <div id="jquery-free" class="step slide" data-x="-1500" data-y="6000">
-            <p><b>Things you don't need jQuery for.</b></p>
-            <hr>            
-
-         </div>
-         <div id="javascript-language" class="step slide" data-x="-1500" data-y="4500">
-            <p><b>JavaScript as a Language</b></p>
-            <hr>            
-
-         </div>
-         <div id="4-stages-of-javascript" class="step slide" data-x="-1500" data-y="4500" data-z="1500">
-            <p><b>4 Stages of JavaScript</b></p>
-            <hr>            
-
          </div>
          
-         <div id="javascript-patterns" class="step slide" data-x="-1500" data-y="7500">
-            <p><b>Wielding JavaScript</b></p>
-            <hr>            
+
+         <div id="library-decision" class="step slide" data-x="-1500" data-y="3000">
+            <p><b>When should you use a library?</b></p>
+            <hr>
+            <ul>
+               <li class="space10">Browser Landscape</li>
+               <li class="space10">Quick Prototyping</li>
+               <li class="space10">Is it Magic?</li>
+               <li class="space10">Heavy MV* Client App</li>
+               <li class="space10">Your library takes a dependency on another (bootstrap, backbone.js, ember.js, etc.)</li>
+            </ul>
 
          </div>
-         <div id="es5-you-may-not-know" class="step slide" data-x="-1500" data-y="9000">
+
+         <div id="what-if" class="step" data-x="-1500" data-y="4500">
+            <img src="images/you-dont-need-jquery.jpg" style="width:100%">
+         </div>         
+         <div id="jquery-free" class="step slide" data-x="-1500" data-y="6000">
+            <p><b>Things you don't need jQuery for.</b></p>
+            <hr>
+            <img src="images/jquery.jpg" class="right-float border" style="width: 300px">
+            <ul>
+               <li class="space5">Selectors (CSS2 in IE8 only)</li>
+               <li class="space5">Iteration</li>
+               <li class="space5">Dom Manipulation</li>
+               <li class="space5">Animation</li>
+               <li class="space5">Ajax</li>
+               <li class="space5">Dom Ready</li>
+            </ul>
+         </div>
+
+         <div id="jquery-selectors" class="step slide" data-x="-3000" data-y="6000">
+            <p><b>Native Selectors</b></p>
+            <hr>
+            <!-- prefixed matches polyfill -->
+         </div>
+
+         <div id="jquery-iteration" class="step slide" data-x="-4500" data-y="6000">
+            <p><b>Native Iteration</b></p>
+            <hr>
+            <!-- .forEach -->
+         </div>
+
+         <div id="jquery-dom" class="step slide" data-x="-6000" data-y="6000">
+            <p><b>Native Dom Manipulation</b></p>
+            <hr>
+            <!-- implement .text() -->
+         </div>
+
+         <div id="jquery-animation" class="step slide" data-x="-7500" data-y="6000">
+            <p><b>Native Animation</b></p>
+            <hr>
+
+            <!-- todo implement fade -->
+         </div>
+         <div id="jquery-ajax" class="step slide" data-x="-9000" data-y="6000" >
+            <p><b>Native Ajax</b></p>
+            <hr>
+
+            <!-- todo implement xhr to twitter -->
+         </div>
+
+         <div id="jquery-dom-ready" class="step slide" data-x="-10500" data-y="6000" >
+            <p><b>Native DOM Ready</b></p>
+            <hr>
+
+            <!-- todo implement dom ready -->
+         </div>
+
+
+         <div id="the-jquery-question" class="step" data-rotate="-180" data-x="-10500" data-y="7500">
+            <p style="width: 900px;font-size: 100px;margin: auto;color:rgb(213, 213, 213);"><b>So we shouldn't use jQuery right?</b></p>
+         </div>
+         <div id="one-does-not-simply" class="step" data-x="-1500" data-y="9000">
+            <img src="images/one-does-not-simply.jpg" style="width:100%">
+         </div>
+
+         <div id="javascript-language" class="step slide" data-x="0" data-y="9000">
+            <p><b>JavaScript as a Language</b></p>
+            <hr>
+            <ul>
+               <li class="space10">Functional</li>
+               <li class="space10">Object Oriented</li>
+               <li class="space10">Prototypal</li>
+               <li class="space10">Extensible</li>
+               <li class="space10">Universal</li>
+            </ul>
+
+         </div>
+         <div id="5-stages-of-javascript" class="step slide" data-x="0" data-y="7500">
+            <p><b>5 Stages of Learning JavaScript</b></p>
+            <hr>            
+            <img src="images/5-stages.svg" class="right-float border" style="width: 240px">
+            <ul>
+               <li class="space10">Anger</li>
+               <li class="space10">Denial</li>
+               <li class="space10">Enlightenment</li>
+               <li class="space10">Zealotry</li>
+               <li class="space10">Zen</li>
+            </ul>
+         </div>
+
+         <div id="javascript-patterns-functions" class="step slide" data-x="0" data-y="6000">
+            <p><b>Wielding JavaScript: Functions</b></p>
+            <hr>
+            <div id="functions-editor" class="code-editor">var theAnswer = function(){
+    return 42;
+};
+
+function hoisting(){
+    for(var i = 0; i < 12; i++){
+     
+    }
+}
+
+(function(window){
+    
+})(window);</div>
+            <button id="btn-functions" class="btn btn-primary right">Run!</button>
+         </div>
+         
+         <div id="javascript-patterns-modules" class="step slide" data-x="0" data-y="4500">
+            <p><b>Wielding JavaScript: Modules (Namespaces)</b></p>
+            <hr>
+            <div id="modules-editor" class="code-editor">
+var pollutingTheGlobal = 10;
+// encapsulate GeneralMills functionality
+var GeneralMills;
+(function(GeneralMills){
+    
+    GeneralMills.myVarsDontPollute = 11;
+    
+    GeneralMills.theBestFunction = function(a, b){
+        return a + b;
+    };
+
+})(GeneralMills || (GeneralMills = {}));
+
+
+alert(myVarsDontPollute);
+alert(GeneralMills.myVarsDontPollute);</div>
+            <button id="btn-modules" class="btn btn-primary right">Run!</button>
+         </div>
+
+         <div id="javascript-patterns-revealing-module" class="step slide" data-x="0" data-y="3000">
+            <p><b>Wielding JavaScript: Revealing Module Pattern</b></p>
+            <hr>
+            <div id="revealing-module-editor" class="code-editor">var Car = function(color){
+    var car = {};
+    car.color = color || "red";
+    car.speed = 0;
+    car.accelerate = function(speed){
+        this.speed += speed;  
+    };
+    
+    car.paint = function(color){
+        this.color = color;
+    };
+    return car;
+};</div>
+            <button id="btn-revealing-module" class="btn btn-primary right">Run!</button>
+         </div>
+
+         <div id="javascript-patterns-prototype-pattern" class="step slide" data-x="0" data-y="1500">
+            <p><b>Wielding JavaScript: Prototype Pattern</b></p>
+            <hr>
+            <div id="prototype-editor" class="code-editor">var Car = function(color){
+    this.color = color || "red";
+    this.speed = 0;
+};
+
+Car.prototype.accelerate = function(speed){
+    this.speed += speed;
+};
+
+Car.prototype.paint = function(color){
+    this.color = color;  
+};
+</div>
+            <button id="btn-prototype" class="btn btn-primary right">Run!</button>
+         </div>
+
+         <div id="javascript-patterns-revealing-prototype-pattern" class="step slide" data-x="0" data-y="0">
+            <p><b>Wielding JavaScript: Revealing Prototype Pattern</b></p>
+            <hr>
+            <div id="revealing-prototype-editor" class="code-editor">var Car = function(color){
+    this.speed = 0;
+    this.color = color || "red";
+};
+
+Car.prototype = function(){
+  var me = this;
+  var increaseSpeed = function(speed){
+      this.speed += speed;
+  };
+  
+  me.accelerate = function(speed){
+      increaseSpeed(speed);
+  };
+  
+  me.paint = function(color){
+      this.color = color;
+  }; 
+  
+  return me;    
+};</div>
+            <button id="btn-revealing-prototype" class="btn btn-primary right">Run!</button>
+         </div>
+
+         <div id="javascript-patterns-singleton" class="step slide" data-x="0" data-y="-1500">
+            <p><b>Wielding JavaScript: Singleton</b></p>
+            <hr>
+            <div id="singleton-editor" class="code-editor">var Logger = function(){    
+    if(!Logger._instance){
+        Logger._instance = this;
+    }
+    return Logger._instance;
+};
+// static property and method
+Logger._instance = null;
+Logger.getInstance = function(){
+    if(Logger._instance === null){
+        Logger._instance = new Logger();
+    }
+    return Logger._instance;
+};
+
+Logger.prototype.info = function(){
+    console.log.apply(console, Array.prototype.slice.call(arguments));
+};</div>
+            <button id="btn-singleton" class="btn btn-primary right">Run!</button>
+         </div>
+
+         <div id="javascript-patterns-observer" class="step slide" data-x="0" data-y="-3000">
+            <p><b>Wielding JavaScript: Observer</b></p>
+            <hr>
+            <div id="observer-editor" class="code-editor"></div>
+            <button id="btn-observer" class="btn btn-primary right">Run!</button>
+         </div>
+
+         <div id="javascript-patterns-pubsub" class="step slide" data-x="0" data-y="-4500">
+            <p><b>Wielding JavaScript: Publish/Subscribe</b></p>
+            <hr>
+            <div id="pubsub-editor" class="code-editor"></div>
+            <button id="btn-pubsub" class="btn btn-primary right">Run!</button>
+         </div>
+
+         <div id="javascript-patterns-inheritance" class="step slide" data-x="0" data-y="-6000">
+            <p><b>Wielding JavaScript: "Classical" Inheritance</b></p>
+            <hr>
+            <div id="inheritance-editor" class="code-editor">var Class = function(){  
+};
+
+Class.extend = function(methods){
+    var subclass = function(){
+        this['_super'].apply(this, Array.prototype.slice.call(arguments));
+        if(this['init']){
+            this['init'].apply(this, Array.prototype.slice.call(arguments));
+        }
+    };
+    
+    var mixin = function(dest, source){
+        for(var p in source){
+            if(source.hasOwnProperty(p)){
+                dest[p] = source[p];
+            }
+        }
+        function subclass(){
+            this.constructor = dest;
+        }
+        subclass.prototype = source.prototype;
+        dest.prototype = new subclass();
+    }
+    
+    var clazz = this;
+    mixin(subclass, clazz);
+    for(var method in methods){
+        subclass.prototype[method] = methods[method];
+    }
+    subclass.prototype["_super"] = clazz;
+    subclass.prototype["super"] = clazz.prototype;
+    
+    return subclass;
+};</div>
+            <button id="btn-inheritance" class="btn btn-primary right">Run!</button>
+         </div>
+
+         <div id="javascript-patterns-interfaces" class="step slide" data-x="0" data-y="-7500">
+            <p><b>Wielding JavaScript: Enforcing Interfaces</b></p>
+            <hr>
+            <div id="interfaces-editor" class="code-editor"></div>
+            <button id="btn-interfaces" class="btn btn-primary right">Run!</button>
+         </div>
+
+         <div id="javascript-patterns-decorator" class="step slide" data-x="0" data-y="-9000">
+            <p><b>Wielding JavaScript: Decorator Pattern</b></p>
+            <hr>
+            <div id="decorator-editor" class="code-editor"></div>
+            <button id="btn-decorator" class="btn btn-primary right">Run!</button>
+         </div>
+
+         <div id="es5-you-may-not-know" class="step slide" data-x="1500" data-y="-1500">
             <p><b>EcmaScript 5 That's awesome</b></p>
-            <hr>            
+            <hr>
+            <ul>
+               <li class="space5">WebGl</li>
+               <li class="space5">Canvas</li>
+               <li class="space5">WebAudio Api</li>
+               <li class="space5">WebSockets</li>
+               <li class="space5">IndexDB</li>
+               <li class="space5">FileSystem</li>
+            </ul>
+         </div>
+         <div id="es6-today" class="step slide" data-x="1500" data-y="-3000">
+            <p><b>EcmaScript 6 Today</b></p>
+            <hr> 
+            <ul>
+               <li class="space5">De-structuring</li>
+               <li class="space5">Object.observe</li>
+               <li class="space5">Generators</li>
+               <li class="space5">Native promises (Promises/A+ spec)</li>
+               <li class="space5">Native module support</li>
+               <li class="space5">Chrome Harmony Build (Experimental JavaScript flag)</li>
+               <li class="space5">Tracuer Compiler</li>
+            </ul>
 
          </div>
-         <div id="es6-today" class="step slide" data-x="-1500" data-y="10500">
-            <p><b>EcmaScript 6 Today</b></p>
-            <hr>            
 
+         <div id="eriks-observable" class="step slide" data-x="1500" data-y="-4500">
+            <p><b>Observable Implementation</b></p>
+            <hr> 
          </div>
 
 			<div id="questions" class="step" data-x="3000" data-y="-4500">
@@ -146,97 +450,56 @@
 					return editor;
 				};
 
-				var interval = undefined;
-				var running = false;
-				var clearAnimation = function(){
-					if(interval){clearInterval(interval)};
-					running = false;
-				};
-
 				var hideDemoCode = true;
-				var drawingEditor = makeEditor('drawing-editor');
-				var movementEditor = makeEditor('movement-editor');
-				var timingEditor = makeEditor('timing-editor');
-				var gameloopEditor = makeEditor('gameloop-editor');
-				var actorEditor = makeEditor('actor-editor');
-				var collisionDetectionEditor = makeEditor('collision-detection-editor');
-				var keycodeVectorEditor = makeEditor('keycode-vector-editor');
-				var keycodeKonamiEditor = makeEditor('keycode-konami-editor');
-				var htmlAudioEditor = makeEditor('html-audio-editor');
-				var webAudioEditor = makeEditor('web-audio-editor');
-				var spriteAnimationEditor = makeEditor('sprite-animation-editor');
-				var gameEditor = makeEditor('game-editor');
+				var functionsEditor = makeEditor('functions-editor');
+				var modulesEditor = makeEditor('modules-editor');
+				var revealingModuleEditor = makeEditor('revealing-module-editor');
+            var prototypeEditor = makeEditor('prototype-editor');
+				var revealingPrototypeEditor = makeEditor('revealing-prototype-editor');
+            var singletonEditor = makeEditor('singleton-editor');
+            var observerEditor = makeEditor('observer-editor');
+            var pubsubEditor = makeEditor('pubsub-editor');
+            var inheritanceEditor = makeEditor('inheritance-editor');
+            var interfacesEditor = makeEditor('interfaces-editor');
+            var decoratorEditor = makeEditor('decorator-editor');
 
-				var request = new XMLHttpRequest();
-				request.open("GET", "starshooter.js");
-				request.responseType = 'text/plain'
-				request.onload = function(){
-					gameEditor.getSession().setValue(request.response);
-				}
-				request.send();
 
 				// Setup coding demos
-				$('#btn-drawing').on('click', function(){
+				$('#btn-functions').on('click', function(){
 					clearAnimation();
-					var code = drawingEditor.getSession().getValue();
+					var code = functionsEditor.getSession().getValue();
 					scriptHoister(code);
 				});
 
-				$('#btn-time-based-movement').on('click', function(){
+				$('#btn-modules').on('click', function(){
 					clearAnimation();
-					var code = movementEditor.getSession().getValue();
+					var code = modulesEditor.getSession().getValue();
 					scriptHoister(code);
 				});
 
-				$('#btn-timing').on('click', function(){
+				$('#btn-revealing-prototype').on('click', function(){
 					clearAnimation();
-					var code = timingEditor.getSession().getValue();
+					var code = revealingPrototypeEditor.getSession().getValue();
 					scriptHoister(code);
 				});
 
-				$('#btn-konami').on('click', function(){
+				$('#btn-revealing-module').on('click', function(){
 					clearAnimation();
-					var code = keycodeKonamiEditor.getSession().getValue();
+					var code = revealingModuleEditor.getSession().getValue();
 					scriptHoister(code);
 				});
 
-				$('#btn-html-audio-load').on('click', function(){
+				$('#btn-prototype').on('click', function(){
 					clearAnimation();
-					var code = htmlAudioEditor.getSession().getValue();
+					var code = prototypeEditor.getSession().getValue();
 					scriptHoister(code);
 				});
 
-				$('#btn-web-audio-load').on('click', function(){
-					clearAnimation();
-					var code = webAudioEditor.getSession().getValue();
-					scriptHoister(code);
-				});
-
-				$('#btn-animation').on('click', function(){					
-					clearAnimation();
-					var code = spriteAnimationEditor.getSession().getValue();
-					scriptHoister(code);
-				});
-
-				$('#btn-game').on('click', function(){
-					try{
-						game.stop();
-					}catch(e){
-						//swallow 
-						// there is a better way to do this :/
-					}
-					clearAnimation();
-					var code = gameEditor.getSession().getValue();
-					scriptHoister(code);
-					$('#btn-game').blur();
-				})
-
-				$('#btn-game-stop').on('click', function(){
-					game.stop();
-				})
-
-
-
+            $('#btn-singleton').on('click', function(){
+               clearAnimation();
+               var code = singletonEditor.getSession().getValue();
+               scriptHoister(code);
+            });
 		</script>
 	</body>
 </html>
