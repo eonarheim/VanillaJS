@@ -32,7 +32,11 @@
 			    
 			    <br/>
 			    <ul>
-			    	<li><img src="images/VanillaIceCream.jpg" class="right-image border" style="width: 505px;"></li>
+			    	<li>
+                  <img src="images/winnerVanilla.jpg" class="right-image border" style="width: 505px;">
+                  <div style="font-size: 10pt;float: right; vertical-align: top;">Courtesy http://www.flickr.com/photos/foonus/</div>
+               </li>
+
 			    	<li>Erik Onarheim - Software Developer</li>
 			    	<li>@ErikOnarheim</li>
 			    	<li>erikonarheim.com</li>
@@ -99,38 +103,167 @@
             <p><b>Native Selectors</b></p>
             <hr>
             <!-- prefixed matches polyfill -->
+            <div id="selectors-editor" class="code-editor">/// basic selectors
+var $el = $('#my-id');
+var el = document.getElementById('my-id');
+
+var $divs = $('.div');
+var divs = document.getElementsByTagName('div');
+
+var $classes = $('.my-class');
+// ie 9 and greater
+var classes = document.getElementsByClassName('my-class');
+// implement shim
+if(!Element.prototype.getElementsByClassName){
+    Element.prototype.getElementsByClassName = function(classname){
+        var name = "."+classname;
+        if(Element.prototype.querySelectorAll){
+            return this.querySelectorAll(name);
+        }else{
+            elements = this.getElementsByTagName("*");
+            var results = [];
+            for(var i = 0; i < elements.length; i++){
+                if(elements[i].className === name){
+                    results.push(elements[i]);
+                }
+            }
+            return results;
+        }
+        
+    };
+}
+
+var $elementSet = $('div.my-class');
+var elementSet = document.querySelectorAll('div.my-class');
+
+var $firstElement = $('div.my-class');
+var firstElement = document.querySelector('div.my-class');
+</div>
+            <button id="btn-selectors" class="btn btn-primary right">Run!</button>
          </div>
 
          <div id="jquery-iteration" class="step slide" data-x="-4500" data-y="6000">
             <p><b>Native Iteration</b></p>
             <hr>
             <!-- .forEach -->
+            <div id="iteration-editor" class="code-editor">
+var jqElements = [];
+$.each([1,2,3,4], function(i, element){
+    jqElements.push(element);
+});
+
+var nativeElements = [];
+[1,2,3,4].forEach(function(element, i){
+    nativeElements.push(element);
+});
+
+var jqResult = $.map([1,2,3,4,5], function(i, element){
+   return element * 2; 
+});
+
+var nativeResult = [1,2,3,4,5].map(function(element, i){
+   return element * 2; 
+});
+
+// show es5
+if(!Array.prototype.forEach){
+    Array.prototype.forEach = function(fcn){
+        var array = this;
+        var length = array.length;
+        for(var i = 0; i < length; i++){
+            fcn.call(this, array[i], i);
+        }        
+    };
+}
+
+if(!Array.prototype.map){
+    Array.prototype.map = function(fcn){
+        var array = this;
+        var length = array.length;
+        var results = new Array(length);
+        for(var i = 0; i < length; i++){
+            results[i] = fcn.call(this, this[i], i);
+        }
+    };
+}
+
+</div>
+            <button id="btn-interation" class="btn btn-primary right">Run!</button>
          </div>
 
          <div id="jquery-dom" class="step slide" data-x="-6000" data-y="6000">
             <p><b>Native Dom Manipulation</b></p>
             <hr>
             <!-- implement .text() -->
+            <div id="dom-editor" class="code-editor">var newDiv = document.createElement('div');
+newDiv.id = 'my-div';
+newDiv.style.color = 'lime';
+document.body.appendChild(newDiv);
+
+var maybeNewDiv = document.getElementById('my-div');
+
+if(newDiv === maybeNewDiv){
+    writter.info("Works!");
+}</div>
+            <button id="btn-dom" class="btn btn-primary right">Run!</button>
          </div>
 
          <div id="jquery-animation" class="step slide" data-x="-7500" data-y="6000">
             <p><b>Native Animation</b></p>
             <hr>
-
+            <img id="angry-baby" src="images/anger.jpg"/>
             <!-- todo implement fade -->
+            <div id="animation-editor" class="half-code-editor">if(!window.requestAnimationFrame){
+    window.requestAnimationFrame = 
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    function(callback){window.setTimeout(callback, 1000/60)};
+}
+
+var fadeOut = function(id, time){
+    var el = document.getElementById(id);
+    el.style.opacity = 1.0;
+    var rate = el.style.opacity/time;
+    var now = Date.now();
+    var lastTime = Date.now();
+    var delta;
+    window.requestAnimationFrame(function fade(){
+        now = Date.now();
+        delta = now - lastTime;
+        if(el.style.opacity >= 0){
+            window.requestAnimationFrame(fade);    
+        }
+        el.style.opacity -= rate*delta;
+        lastTime = now;
+    });
+};</div>
+            <button id="btn-animation" class="btn btn-primary right">Run!</button>
          </div>
          <div id="jquery-ajax" class="step slide" data-x="-9000" data-y="6000" >
             <p><b>Native Ajax</b></p>
             <hr>
 
             <!-- todo implement xhr to twitter -->
+            <div id="ajax-editor" class="code-editor">var request = new XMLHttpRequest();
+request.responseType = 'json';
+request.open('GET', 'www.example.com/myapi', true);
+request.onload = function(){
+    writter.info("Data!", request.response);   
+}
+request.send();
+</div>
+            <button id="btn-ajax" class="btn btn-primary right">Run!</button>
          </div>
 
-         <div id="jquery-dom-ready" class="step slide" data-x="-10500" data-y="6000" >
+         <div id="jquery-dom-ready" class="code-editor" data-x="-10500" data-y="6000" >
             <p><b>Native DOM Ready</b></p>
             <hr>
 
             <!-- todo implement dom ready -->
+            <div id="dom-ready-editor" class="code-editor">
+            </div>
          </div>
 
 
@@ -164,25 +297,6 @@
                <li class="space10">Zealotry</li>
                <li class="space10">Zen</li>
             </ul>
-         </div>
-
-         <div id="javascript-patterns-functions" class="step slide" data-x="0" data-y="6000">
-            <p><b>Wielding JavaScript: Functions</b></p>
-            <hr>
-            <div id="functions-editor" class="code-editor">var theAnswer = function(){
-    return 42;
-};
-
-function hoisting(){
-    for(var i = 0; i < 12; i++){
-     
-    }
-}
-
-(function(window){
-    
-})(window);</div>
-            <button id="btn-functions" class="btn btn-primary right">Run!</button>
          </div>
          
          <div id="javascript-patterns-modules" class="step slide" data-x="0" data-y="4500">
@@ -254,14 +368,14 @@ Car.prototype.paint = function(color){
     this.color = color || "red";
 };
 
-Car.prototype = function(){
+Car.prototype = (function(){
   var me = this;
   var increaseSpeed = function(speed){
-      this.speed += speed;
+      me.speed += speed;
   };
   
   me.accelerate = function(speed){
-      increaseSpeed(speed);
+      me.increaseSpeed(speed);
   };
   
   me.paint = function(color){
@@ -269,7 +383,7 @@ Car.prototype = function(){
   }; 
   
   return me;    
-};</div>
+})();</div>
             <button id="btn-revealing-prototype" class="btn btn-primary right">Run!</button>
          </div>
 
@@ -285,10 +399,7 @@ Car.prototype = function(){
 // static property and method
 Logger._instance = null;
 Logger.getInstance = function(){
-    if(Logger._instance === null){
-        Logger._instance = new Logger();
-    }
-    return Logger._instance;
+    return new Logger();
 };
 
 Logger.prototype.info = function(){
@@ -402,13 +513,126 @@ Class.extend = function(props){
 		<div class="hint">
 			<p>Use the "Page Up" and "Page Down" keys to navigate.
 		</div>
-
+      <div id="toast-container"></div>
 		<script type="text/javascript" src="lib/jquery-2.0.3.min.js"></script>
 		<script type="text/javascript" src="lib/impress.js"></script>
 		<script type="text/javascript">impress().init()</script>
 		<script type="text/javascript" src="lib/ace/ace.js" charset="utf-8"></script>
 		<script type="text/javascript" src="snake.js"></script>
 		<script type="text/javascript">
+            if(!window.requestAnimationFrame){
+                window.requestAnimationFrame = 
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                window.msRequestAnimationFrame ||
+                window.oRequestAnimationFrame ||
+                function(callback){window.setTimeout(callback, 1000/60)};
+            }
+
+            // implement jquery fadeOut
+
+            var fadeOut = function(el, time){
+               //var el = document.getElementById(id);
+               var rate = el.style.opacity/time;
+               var now = Date.now();
+               var lastTime = Date.now();
+               var delta;
+               window.requestAnimationFrame(function fade(){
+                  if(!el || !el.parentElement) return;
+
+                  now = Date.now();
+                  delta = now - lastTime;
+                  if(el.style.opacity >= 0){
+                     window.requestAnimationFrame(fade);    
+                     el.style.opacity -= rate*delta;
+                     lastTime = now;
+                  }else{
+                     el.parentElement.removeChild(el);
+                  }
+                    
+                });
+            };
+
+            var Writter = function(){
+               if(!Writter.instance){
+                  Writter.instance = this;
+                  this.toasts = [];
+                  this.container = document.getElementById('toast-container');
+               }
+
+               return Writter.instance;
+            };
+
+            Writter.instance = null;
+            Writter.getInstance = function(){
+               return new Writter();
+            };
+
+            Writter.prototype = (function(){
+               var fadeOut = function(el, time){
+                  //var el = document.getElementById(id);
+                  var rate = el.style.opacity/time;
+                  var now = Date.now();
+                  var lastTime = Date.now();
+                  var delta;
+                  window.requestAnimationFrame(function fade(){
+                     if(!el || !el.parentElement) return;
+
+                     now = Date.now();
+                     delta = now - lastTime;
+                     if(el.style.opacity >= 0){
+                        window.requestAnimationFrame(fade);    
+                        el.style.opacity -= rate*delta;
+                        lastTime = now;
+                     }else{
+                        el.parentElement.removeChild(el);
+                     }
+                       
+                  });
+               };
+
+               var message = function(level){
+                  var args = Array.prototype.slice.call(arguments);
+                  var message = args.join(' ');
+                  var toast = document.createElement('div');
+                  toast.className = 'toast '+ level;
+                  toast.style.opacity = .7;
+                  toast.innerText = message;
+                  this.toasts.push(toast);
+
+                  var firstEl = this.container.firstChild;
+                  this.container.insertBefore(toast, firstEl);
+                  setTimeout(function(){
+                     fadeOut(toast, 3000);
+                  },1000);
+               }
+
+               var info = function(){
+                  message.call(this, 'info');
+               }
+               var warn = function(){
+                  message.call(this, 'warn');
+               }
+               var error = function(){
+                  message.call(this, 'error');
+               }              
+
+               var clear = function(){
+                  var that = this;
+                  this.toasts.forEach(function(t){
+                     that.container.removeChild(t);
+                  });
+                  this.toasts.length = 0;
+               }
+
+               return {
+                  info : info,
+                  warn : warn,
+                  error : error,
+                  clear: clear
+               }
+            })();
+
 				var scriptHoister =function(scriptText){
 					setTimeout(function(){
 			            if (scriptText) {
@@ -448,7 +672,13 @@ Class.extend = function(props){
 				};
 
 				var hideDemoCode = true;
-				var functionsEditor = makeEditor('functions-editor');
+
+            var selectorsEditor = makeEditor('selectors-editor');
+            var iterationEditor = makeEditor('iteration-editor');
+            var domEditor = makeEditor('dom-editor');
+            var ajaxEditor = makeEditor('ajax-editor');
+            var animationEditor = makeEditor('animation-editor');
+				
 				var modulesEditor = makeEditor('modules-editor');
 				var revealingModuleEditor = makeEditor('revealing-module-editor');
             var prototypeEditor = makeEditor('prototype-editor');
@@ -462,27 +692,23 @@ Class.extend = function(props){
 
 
 				// Setup coding demos
-				$('#btn-functions').on('click', function(){
-					clearAnimation();
-					var code = functionsEditor.getSession().getValue();
+				$('#btn-animation').on('click', function(){
+					var code = animationEditor.getSession().getValue();
 					scriptHoister(code);
 				});
 
-				$('#btn-modules').on('click', function(){
-					clearAnimation();
-					var code = modulesEditor.getSession().getValue();
+				$('#btn-interation').on('click', function(){
+					var code = iterationEditor.getSession().getValue();
 					scriptHoister(code);
 				});
 
-				$('#btn-revealing-prototype').on('click', function(){
-					clearAnimation();
-					var code = revealingPrototypeEditor.getSession().getValue();
+				$('#btn-dom').on('click', function(){
+					var code = domEditor.getSession().getValue();
 					scriptHoister(code);
 				});
 
-				$('#btn-revealing-module').on('click', function(){
-					clearAnimation();
-					var code = revealingModuleEditor.getSession().getValue();
+				$('#btn-selectors').on('click', function(){
+					var code = selectorsEditor.getSession().getValue();
 					scriptHoister(code);
 				});
 
