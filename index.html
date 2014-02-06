@@ -5,6 +5,7 @@
 		<meta name="author" content="Erik Onarheim">
 		<link rel="stylesheet" type="text/css" href="css/presentation.css">
 		<link rel="stylesheet" type="text/css" href="css/custom.css">
+      <link rel="stylesheet" type="text/css" href="utoast.css">
       <link rel="icon" type="image/x-icon" href="favicon.png" />
       <!-- 
          The philosophy of VanillaJS is to avoid using JavaScript libraries when native JavaScript can be used to achieve the same goal. JavaScript provides a wide range of capabilities that truly make it a first class language for application development.
@@ -68,20 +69,6 @@
             </ul>
          </div>
          
-
-         <div id="library-decision" class="step slide" data-x="-1500" data-y="3000">
-            <p><b>When should you use a library?</b></p>
-            <hr>
-            <ul>
-               <li class="space10">Browser Landscape</li>
-               <li class="space10">Quick Prototyping</li>
-               <li class="space10">Is it Magic?</li>
-               <li class="space10">Heavy MV* Client App</li>
-               <li class="space10">Your library takes a dependency on another (bootstrap, backbone.js, ember.js, etc.)</li>
-            </ul>
-
-         </div>
-
          <div id="what-if" class="step" data-x="-1500" data-y="4500">
             <img src="images/you-dont-need-jquery.jpg" style="width:100%">
          </div>         
@@ -257,22 +244,29 @@ request.send();
             <button id="btn-ajax" class="btn btn-primary right">Run!</button>
          </div>
 
-         <div id="jquery-dom-ready" class="code-editor" data-x="-10500" data-y="6000" >
-            <p><b>Native DOM Ready</b></p>
-            <hr>
 
-            <!-- todo implement dom ready -->
-            <div id="dom-ready-editor" class="code-editor">
-            </div>
-         </div>
-
-
-         <div id="the-jquery-question" class="step" data-rotate="-180" data-x="-10500" data-y="7500">
+         <div id="the-jquery-question" class="step" data-rotate="0" data-x="-10500" data-y="7500">
             <p style="width: 900px;font-size: 100px;margin: auto;color:rgb(213, 213, 213);"><b>So we shouldn't use jQuery right?</b></p>
          </div>
-         <div id="one-does-not-simply" class="step" data-x="-1500" data-y="9000">
+
+         <div id="one-does-not-simply" class="step" data-x="-9000" data-y="7500">
             <img src="images/one-does-not-simply.jpg" style="width:100%">
          </div>
+
+         <div id="library-decision" class="step slide" data-x="-7500" data-y="7500">
+            <p><b>When should you use a library?</b></p>
+            <hr>
+            <ul>
+               <li class="space10">Browser Landscape</li>
+               <li class="space10">Quick Prototyping</li>
+               <li class="space10">Pure Magic?</li>
+               <li class="space10">Heavy MV* Client App</li>
+               <li class="space10">Your library takes a dependency on another (bootstrap, backbone.js, ember.js, etc.)</li>
+            </ul>
+
+         </div>
+
+         
 
          <div id="javascript-language" class="step slide" data-x="0" data-y="9000">
             <p><b>JavaScript as a Language</b></p>
@@ -326,17 +320,17 @@ alert(GeneralMills.myVarsDontPollute);</div>
             <p><b>Wielding JavaScript: Revealing Module Pattern</b></p>
             <hr>
             <div id="revealing-module-editor" class="code-editor">var Car = function(color){
-    var car = {};
-    car.color = color || "red";
-    car.speed = 0;
-    car.accelerate = function(speed){
-        this.speed += speed;  
+    var me = this;
+    me.color = color || "red";
+    me.speed = 0;
+    me.accelerate = function(speed){
+        me.speed += speed;  
     };
     
-    car.paint = function(color){
-        this.color = color;
+    me.paint = function(color){
+        me.color = color;
     };
-    return car;
+    return me;
 };</div>
             <button id="btn-revealing-module" class="btn btn-primary right">Run!</button>
          </div>
@@ -369,21 +363,27 @@ Car.prototype.paint = function(color){
 };
 
 Car.prototype = (function(){
-  var me = this;
+  var me = {};
   var increaseSpeed = function(speed){
-      me.speed += speed;
+      this.speed += speed;
   };
   
   me.accelerate = function(speed){
-      me.increaseSpeed(speed);
+      increaseSpeed.call(this, speed);
   };
   
   me.paint = function(color){
       this.color = color;
   }; 
-  
-  return me;    
-})();</div>
+  return me;  
+})();
+
+
+var batmobile = new Car('black');
+batmobile.accelerate(10);
+uToast.info("Batmobile's speed", batmobile.speed);
+
+</div>
             <button id="btn-revealing-prototype" class="btn btn-primary right">Run!</button>
          </div>
 
@@ -406,23 +406,9 @@ Logger.prototype.info = function(){
     console.log.apply(console, Array.prototype.slice.call(arguments));
 };</div>
             <button id="btn-singleton" class="btn btn-primary right">Run!</button>
-         </div>
+         </div>         
 
-         <div id="javascript-patterns-observer" class="step slide" data-x="0" data-y="-3000">
-            <p><b>Wielding JavaScript: Observer</b></p>
-            <hr>
-            <div id="observer-editor" class="code-editor"></div>
-            <button id="btn-observer" class="btn btn-primary right">Run!</button>
-         </div>
-
-         <div id="javascript-patterns-pubsub" class="step slide" data-x="0" data-y="-4500">
-            <p><b>Wielding JavaScript: Publish/Subscribe</b></p>
-            <hr>
-            <div id="pubsub-editor" class="code-editor"></div>
-            <button id="btn-pubsub" class="btn btn-primary right">Run!</button>
-         </div>
-
-         <div id="javascript-patterns-inheritance" class="step slide" data-x="0" data-y="-6000">
+         <div id="javascript-patterns-inheritance" class="step slide" data-x="0" data-y="-3000">
             <p><b>Wielding JavaScript: "Classical" Inheritance</b></p>
             <hr>
             <div id="inheritance-editor" class="code-editor">var Class = function(){};
@@ -451,7 +437,7 @@ Class.extend = function(props){
             <button id="btn-inheritance" class="btn btn-primary right">Run!</button>
          </div>
 
-         <div id="javascript-patterns-interfaces" class="step slide" data-x="0" data-y="-7500">
+         <div id="javascript-patterns-interfaces" class="step slide" data-x="0" data-y="-6000">
             <p><b>Wielding JavaScript: Enforcing Interfaces</b></p>
             <hr>
             <div id="interfaces-editor" class="code-editor">Class.implements = function(methods){
@@ -466,12 +452,7 @@ Class.extend = function(props){
             <button id="btn-interfaces" class="btn btn-primary right">Run!</button>
          </div>
 
-         <div id="javascript-patterns-decorator" class="step slide" data-x="0" data-y="-9000">
-            <p><b>Wielding JavaScript: Decorator Pattern</b></p>
-            <hr>
-            <div id="decorator-editor" class="code-editor"></div>
-            <button id="btn-decorator" class="btn btn-primary right">Run!</button>
-         </div>
+        
 
          <div id="es5-you-may-not-know" class="step slide" data-x="1500" data-y="-1500">
             <p><b>EcmaScript 5 That's awesome</b></p>
@@ -485,7 +466,15 @@ Class.extend = function(props){
                <li class="space5">FileSystem</li>
             </ul>
          </div>
-         <div id="es6-today" class="step slide" data-x="1500" data-y="-3000">
+         <div id="es5-canvas" class="step slide" data-x="1500" data-y="-3000">
+            <p><b>Canvas</b></p>
+            <hr>
+            <canvas id="snake" width="480" height="320" class="border">
+            </canvas>
+            <button id="btn-snake" class="btn btn-primary right">Run!</button>
+         </div>
+
+         <div id="es6-today" class="step slide" data-x="1500" data-y="-4500">
             <p><b>EcmaScript 6 Today</b></p>
             <hr> 
             <ul>
@@ -513,13 +502,14 @@ Class.extend = function(props){
 		<div class="hint">
 			<p>Use the "Page Up" and "Page Down" keys to navigate.
 		</div>
-      <div id="toast-container"></div>
 		<script type="text/javascript" src="lib/jquery-2.0.3.min.js"></script>
 		<script type="text/javascript" src="lib/impress.js"></script>
 		<script type="text/javascript">impress().init()</script>
 		<script type="text/javascript" src="lib/ace/ace.js" charset="utf-8"></script>
 		<script type="text/javascript" src="snake.js"></script>
+      <script type="text/javascript" src="utoast.js"></script>
 		<script type="text/javascript">
+
             if(!window.requestAnimationFrame){
                 window.requestAnimationFrame = 
                 window.webkitRequestAnimationFrame ||
@@ -528,110 +518,7 @@ Class.extend = function(props){
                 window.oRequestAnimationFrame ||
                 function(callback){window.setTimeout(callback, 1000/60)};
             }
-
-            // implement jquery fadeOut
-
-            var fadeOut = function(el, time){
-               //var el = document.getElementById(id);
-               var rate = el.style.opacity/time;
-               var now = Date.now();
-               var lastTime = Date.now();
-               var delta;
-               window.requestAnimationFrame(function fade(){
-                  if(!el || !el.parentElement) return;
-
-                  now = Date.now();
-                  delta = now - lastTime;
-                  if(el.style.opacity >= 0){
-                     window.requestAnimationFrame(fade);    
-                     el.style.opacity -= rate*delta;
-                     lastTime = now;
-                  }else{
-                     el.parentElement.removeChild(el);
-                  }
-                    
-                });
-            };
-
-            var Writter = function(){
-               if(!Writter.instance){
-                  Writter.instance = this;
-                  this.toasts = [];
-                  this.container = document.getElementById('toast-container');
-               }
-
-               return Writter.instance;
-            };
-
-            Writter.instance = null;
-            Writter.getInstance = function(){
-               return new Writter();
-            };
-
-            Writter.prototype = (function(){
-               var fadeOut = function(el, time){
-                  //var el = document.getElementById(id);
-                  var rate = el.style.opacity/time;
-                  var now = Date.now();
-                  var lastTime = Date.now();
-                  var delta;
-                  window.requestAnimationFrame(function fade(){
-                     if(!el || !el.parentElement) return;
-
-                     now = Date.now();
-                     delta = now - lastTime;
-                     if(el.style.opacity >= 0){
-                        window.requestAnimationFrame(fade);    
-                        el.style.opacity -= rate*delta;
-                        lastTime = now;
-                     }else{
-                        el.parentElement.removeChild(el);
-                     }
-                       
-                  });
-               };
-
-               var message = function(level){
-                  var args = Array.prototype.slice.call(arguments);
-                  var message = args.join(' ');
-                  var toast = document.createElement('div');
-                  toast.className = 'toast '+ level;
-                  toast.style.opacity = .7;
-                  toast.innerText = message;
-                  this.toasts.push(toast);
-
-                  var firstEl = this.container.firstChild;
-                  this.container.insertBefore(toast, firstEl);
-                  setTimeout(function(){
-                     fadeOut(toast, 3000);
-                  },1000);
-               }
-
-               var info = function(){
-                  message.call(this, 'info');
-               }
-               var warn = function(){
-                  message.call(this, 'warn');
-               }
-               var error = function(){
-                  message.call(this, 'error');
-               }              
-
-               var clear = function(){
-                  var that = this;
-                  this.toasts.forEach(function(t){
-                     that.container.removeChild(t);
-                  });
-                  this.toasts.length = 0;
-               }
-
-               return {
-                  info : info,
-                  warn : warn,
-                  error : error,
-                  clear: clear
-               }
-            })();
+      
 
 				var scriptHoister =function(scriptText){
 					setTimeout(function(){
@@ -684,11 +571,8 @@ Class.extend = function(props){
             var prototypeEditor = makeEditor('prototype-editor');
 				var revealingPrototypeEditor = makeEditor('revealing-prototype-editor');
             var singletonEditor = makeEditor('singleton-editor');
-            var observerEditor = makeEditor('observer-editor');
-            var pubsubEditor = makeEditor('pubsub-editor');
             var inheritanceEditor = makeEditor('inheritance-editor');
             var interfacesEditor = makeEditor('interfaces-editor');
-            var decoratorEditor = makeEditor('decorator-editor');
 
 
 				// Setup coding demos
@@ -712,6 +596,11 @@ Class.extend = function(props){
 					scriptHoister(code);
 				});
 
+            $('#btn-modules').on('click', function(){
+               var code = modulesEditor.getSession().getValue();
+               scriptHoister(code);
+            });
+
 				$('#btn-prototype').on('click', function(){
 					clearAnimation();
 					var code = prototypeEditor.getSession().getValue();
@@ -722,6 +611,11 @@ Class.extend = function(props){
                clearAnimation();
                var code = singletonEditor.getSession().getValue();
                scriptHoister(code);
+            });
+
+            $('#btn-snake').on('click', function(){
+               var game = new Snake('snake');
+               game.start();
             });
 		</script>
 	</body>

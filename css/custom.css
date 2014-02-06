@@ -25,35 +25,6 @@ hr {
    border-style: inherit;
 }
 
-#toast-container {
-   position: absolute;
-   width: 300px;
-   top: 30px;
-   left: 30px;
-}
-
-.toast  {
-   padding: 10px;
-   margin: 10px;
-
-   color: white;   
-   border-radius: 5px;
-   border: 1px solid transparent;  
-   font-size: 18pt;
-}
-
-.toast.info {
-   background-color: rgb(61, 144, 190);
-}
-
-.toast.warn {
-   background-color: rgb(180, 192, 42);
-}
-
-.toast.error {
-   background-color: rgb(185, 38, 32);
-}
-
 
 .right-image {
 	margin-left: 40px;
