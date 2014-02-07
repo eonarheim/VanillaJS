@@ -109,8 +109,9 @@ if(!Element.prototype.getElementsByClassName){
         }else{
             elements = this.getElementsByTagName("*");
             var results = [];
+            var pattern = new RegExp("(^|\\s)" + classname + "(\\s|$)");
             for(var i = 0; i < elements.length; i++){
-                if(elements[i].className === name){
+                if(pattern.test(elements[i].className)){
                     results.push(elements[i]);
                 }
             }
@@ -163,6 +164,20 @@ if(!Array.prototype.forEach){
     };
 }
 
+if(!Array.prototype.filter){
+    Array.prototype.filter = function(fcn){
+        var array = this;
+        var length = array.length;
+        var results = [];
+        for(var i = 0; i< length; i++){
+            if(fcn.call(this, array[i], i)){
+                results.push(array[i]);
+            }
+        }
+        return results;
+    }
+}
+
 if(!Array.prototype.map){
     Array.prototype.map = function(fcn){
         var array = this;
@@ -174,6 +189,8 @@ if(!Array.prototype.map){
     };
 }
 
+
+
 </div>
             <button id="btn-interation" class="btn btn-primary right">Run!</button>
          </div>
@@ -182,23 +199,25 @@ if(!Array.prototype.map){
             <p><b>Native Dom Manipulation</b></p>
             <hr>
             <!-- implement .text() -->
-            <div id="dom-editor" class="code-editor">var newDiv = document.createElement('div');
-newDiv.id = 'my-div';
-newDiv.style.color = 'lime';
-document.body.appendChild(newDiv);
+            <div id="playground">There is some text here!</div>
+            <div id="dom-editor" class="half-code-editor">var container = document.getElementById('playground');
 
-var maybeNewDiv = document.getElementById('my-div');
+uToast.info(container.innerText);
 
-if(newDiv === maybeNewDiv){
-    writter.info("Works!");
-}</div>
+var newDiv = document.createElement('div');
+newDiv.id = "Happy-Div";
+newDiv.style.width = '20px';
+newDiv.style.height = '20px';
+newDiv.style.backgroundColor = 'lime';
+container.appendChild(newDiv);
+</div>
             <button id="btn-dom" class="btn btn-primary right">Run!</button>
          </div>
 
          <div id="jquery-animation" class="step slide" data-x="-7500" data-y="6000">
             <p><b>Native Animation</b></p>
             <hr>
-            <img id="angry-baby" src="images/anger.jpg"/>
+            <img id="angry-baby" style="opacity:0.0" src="images/anger.jpg"/>
             <!-- todo implement fade -->
             <div id="animation-editor" class="half-code-editor">if(!window.requestAnimationFrame){
     window.requestAnimationFrame = 
@@ -209,23 +228,26 @@ if(newDiv === maybeNewDiv){
     function(callback){window.setTimeout(callback, 1000/60)};
 }
 
-var fadeOut = function(id, time){
+
+var fadeIn = function(id, time){
     var el = document.getElementById(id);
-    el.style.opacity = 1.0;
-    var rate = el.style.opacity/time;
+    el.style.opacity = 0.0;
+    var rate = 1.0/time;
     var now = Date.now();
     var lastTime = Date.now();
     var delta;
     window.requestAnimationFrame(function fade(){
         now = Date.now();
         delta = now - lastTime;
-        if(el.style.opacity >= 0){
+        if(parseFloat(el.style.opacity) < 1.0){
             window.requestAnimationFrame(fade);    
         }
-        el.style.opacity -= rate*delta;
+        el.style.opacity = parseFloat(el.style.opacity) + rate*delta;
         lastTime = now;
     });
-};</div>
+};
+
+fadeIn('angry-baby', 1000);</div>
             <button id="btn-animation" class="btn btn-primary right">Run!</button>
          </div>
          <div id="jquery-ajax" class="step slide" data-x="-9000" data-y="6000" >
@@ -235,11 +257,12 @@ var fadeOut = function(id, time){
             <!-- todo implement xhr to twitter -->
             <div id="ajax-editor" class="code-editor">var request = new XMLHttpRequest();
 request.responseType = 'json';
-request.open('GET', 'www.example.com/myapi', true);
+request.open('GET', 'sample.json');
 request.onload = function(){
-    writter.info("Data!", request.response);   
-}
+    uToast.info("Data!", JSON.stringify(request.response));   
+};
 request.send();
+
 </div>
             <button id="btn-ajax" class="btn btn-primary right">Run!</button>
          </div>
@@ -253,6 +276,16 @@ request.send();
             <img src="images/one-does-not-simply.jpg" style="width:100%">
          </div>
 
+         <div id="you-might-not-need" class="step" data-x="-9000" data-y="9000">
+            <p><b>The subject of jQuery</b></p>
+            <hr>
+            <blockquote>
+               <i>"At the very least, make sure you know what jQuery is doing for you, and what it's not."</i>
+            </blockquote>
+            <br>
+            <span>Adam Schwartz and Zack Bloom of youmightnotneedjquery.com</span>
+         </div>
+
          <div id="library-decision" class="step slide" data-x="-7500" data-y="7500">
             <p><b>When should you use a library?</b></p>
             <hr>
@@ -264,9 +297,7 @@ request.send();
                <li class="space10">Your library takes a dependency on another (bootstrap, backbone.js, ember.js, etc.)</li>
             </ul>
 
-         </div>
-
-         
+         </div>         
 
          <div id="javascript-language" class="step slide" data-x="0" data-y="9000">
             <p><b>JavaScript as a Language</b></p>
@@ -276,7 +307,7 @@ request.send();
                <li class="space10">Object Oriented</li>
                <li class="space10">Prototypal</li>
                <li class="space10">Extensible</li>
-               <li class="space10">Universal</li>
+               <li class="space10">Client/Server</li>
             </ul>
 
          </div>
@@ -452,6 +483,13 @@ Class.extend = function(props){
             <button id="btn-interfaces" class="btn btn-primary right">Run!</button>
          </div>
 
+         <div id="pulling-it-together" class="step slide" data-x="0" data-y="-7500">
+            <p><b>Building a Library</b></p>
+            <hr>
+            <div id="utoast-editor" class="code-editor">
+            </div>
+         </div>
+
         
 
          <div id="es5-you-may-not-know" class="step slide" data-x="1500" data-y="-1500">
@@ -474,8 +512,49 @@ Class.extend = function(props){
             <button id="btn-snake" class="btn btn-primary right">Run!</button>
          </div>
 
-         <div id="es6-today" class="step slide" data-x="1500" data-y="-4500">
-            <p><b>EcmaScript 6 Today</b></p>
+         <div id="es5-websockets" class="step slide" data-x="1500" data-y="-4500">
+            <p><b>WebSockets - http://www.erikonarheim.com:8080</b></p>
+            <hr>
+            <iframe id="websockets" style="width: 700px;height: 535px;" src="http://www.erikonarheim.com:8080">No WIFI!</iframe>
+         </div>
+
+         <div id="code-web-audio-api" class="step slide" data-x="1500" data-y="-6000">
+            <p><b>Web Audio Api</b></p>
+            <button id="btn-web-audio-load" class="btn btn-primary">Load</button>
+            <button id="btn-web-audio-play" class="btn btn-primary">Play</button>
+            <hr>
+            <div id="web-audio-editor" class="code-editor">var context = new window.webkitAudioContext();
+var buffer = null;
+
+var load = function(){
+    var request = new XMLHttpRequest();
+    request.open('GET', 'sounds/soundeffect.mp3');
+    request.responseType = 'arraybuffer';
+    request.onload = function(){
+        context.decodeAudioData(request.response, function(decodedData){
+            buffer = decodedData;
+        });
+    };
+    request.send();
+};
+
+var play = function(){
+    var sound = context.createBufferSource();
+    sound.buffer = buffer;
+    sound.connect(context.destination);
+    sound.start(0);
+};
+
+load();
+
+var button = document.getElementById('btn-web-audio-play');
+button.addEventListener("click", function(){
+    play();
+});</div>
+         </div>
+
+         <div id="es6-today" class="step slide" data-x="1500" data-y="-7500">
+            <p><b>The Future: EcmaScript 6</b></p>
             <hr> 
             <ul>
                <li class="space5">De-structuring</li>
@@ -489,14 +568,30 @@ Class.extend = function(props){
 
          </div>
 
-         <div id="eriks-observable" class="step slide" data-x="1500" data-y="-4500">
-            <p><b>Observable Implementation</b></p>
-            <hr> 
-         </div>
-
 			<div id="questions" class="step" data-x="3000" data-y="-4500">
 				<h5 style="width: 440px;font-size: 1000px;margin: auto;color:rgb(213, 213, 213);">?</h5>
 			</div>
+         <div id="poem" class="step" data-x="3000" data-y="3000">
+            <div style="font-size: 20pt">
+             <b>Let</b> this long package float, <br>
+             <b>Goto</b> private class if short.<br>
+             <b>While</b> protected with debugger case,  <br>
+             <b>Continue</b> volatile interface.<br>
+             <b>Instanceof</b> super synchronized throw, <br>
+             <b>Extends</b> final export throws.  
+             <br>
+             <b>Try</b> import double enum?  <br>
+             - False, boolean, abstract function, <br>
+             <b>Implements</b> typeof transient break!<br>
+             <b>Void</b> static, default do,  <br>
+             <b>Switch</b> int native new. <br>
+             <b>Else</b>, delete null public var <br>
+             <b>In</b> return for const, true, char<br>
+             ...<b>Finally</b> catch byte.<br>
+            </div>
+            <br>
+            <div style="font-size: 10pt;float: right; vertical-align: top;">-Courtesy http://stackoverflow.com/questions/26255/reserved-keywords-in-javascript/12114140#12114140</div>
+         </div>
 		</div>
 
 		<div class="hint">
@@ -573,6 +668,16 @@ Class.extend = function(props){
             var singletonEditor = makeEditor('singleton-editor');
             var inheritanceEditor = makeEditor('inheritance-editor');
             var interfacesEditor = makeEditor('interfaces-editor');
+            var utoastEditor = makeEditor('utoast-editor');
+            var request = new XMLHttpRequest();
+            request.open("GET", "utoast.js");
+            request.responseType = 'text/plain'
+            request.onload = function(){
+               utoastEditor.getSession().setValue(request.response);
+            };
+            request.send();
+
+            var webAudioEditor = makeEditor('web-audio-editor');
 
 
 				// Setup coding demos
@@ -590,6 +695,13 @@ Class.extend = function(props){
 					var code = domEditor.getSession().getValue();
 					scriptHoister(code);
 				});
+
+            $('#btn-ajax').on('click', function(){
+               var code = ajaxEditor.getSession().getValue();
+               scriptHoister(code);
+            });
+
+
 
 				$('#btn-selectors').on('click', function(){
 					var code = selectorsEditor.getSession().getValue();
@@ -616,6 +728,11 @@ Class.extend = function(props){
             $('#btn-snake').on('click', function(){
                var game = new Snake('snake');
                game.start();
+            });
+
+            $('#btn-web-audio-load').on('click', function(){
+               var code = webAudioEditor.getSession().getValue();
+               scriptHoister(code);
             });
 		</script>
 	</body>
