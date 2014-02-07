@@ -654,17 +654,17 @@ button.addEventListener("click", function(){
 
 				var hideDemoCode = true;
 
-            var selectorsEditor = makeEditor('selectors-editor');
-            var iterationEditor = makeEditor('iteration-editor');
-            var domEditor = makeEditor('dom-editor');
-            var ajaxEditor = makeEditor('ajax-editor');
-            var animationEditor = makeEditor('animation-editor');
+            var selectorsEditor = makeEditor('selectors-editor', false);
+            var iterationEditor = makeEditor('iteration-editor', true);
+            var domEditor = makeEditor('dom-editor', true);
+            var ajaxEditor = makeEditor('ajax-editor', true);
+            var animationEditor = makeEditor('animation-editor', false);
 				
-				var modulesEditor = makeEditor('modules-editor');
-				var revealingModuleEditor = makeEditor('revealing-module-editor');
-            var prototypeEditor = makeEditor('prototype-editor');
+				var modulesEditor = makeEditor('modules-editor', true);
+				var revealingModuleEditor = makeEditor('revealing-module-editor', true);
+            var prototypeEditor = makeEditor('prototype-editor', true);
 				var revealingPrototypeEditor = makeEditor('revealing-prototype-editor');
-            var singletonEditor = makeEditor('singleton-editor');
+            var singletonEditor = makeEditor('singleton-editor', true);
             var inheritanceEditor = makeEditor('inheritance-editor');
             var interfacesEditor = makeEditor('interfaces-editor');
             var utoastEditor = makeEditor('utoast-editor');
