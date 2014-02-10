@@ -713,13 +713,11 @@ button.addEventListener("click", function(){
             });
 
 				$('#btn-prototype').on('click', function(){
-					clearAnimation();
 					var code = prototypeEditor.getSession().getValue();
 					scriptHoister(code);
 				});
 
             $('#btn-singleton').on('click', function(){
-               clearAnimation();
                var code = singletonEditor.getSession().getValue();
                scriptHoister(code);
             });
