@@ -82,6 +82,7 @@
                <li class="space5">Dom Manipulation</li>
                <li class="space5">Animation</li>
                <li class="space5">Ajax</li>
+               <li class="space5">Events</li>
             </ul>
          </div>
 
@@ -265,6 +266,14 @@ request.send();
 </div>
             <button id="btn-ajax" class="btn btn-primary right">Run!</button>
          </div>
+         <div id="jquery-event" class="step slide" data-x="-10500" data-y="6000" >
+            <p><b>Native Events</b></p>
+            <hr>
+            <button id="do-stuff" class="btn btn-primary">Do Stuff</button>
+            <button id="btn-event" class="btn btn-primary right">Run!</button>
+            <div id="event-editor" class="code-editor"></div>
+         </div>
+
 
 
          <div id="the-jquery-question" class="step" data-rotate="0" data-x="-10500" data-y="7500">
@@ -285,7 +294,22 @@ request.send();
             <span>Adam Schwartz and Zack Bloom of youmightnotneedjquery.com</span>
          </div>
 
-         <div id="library-decision" class="step slide" data-x="-7500" data-y="7500">
+         <div id="vanillajs-decision" class="step slide" data-x="-7500" data-y="7500">
+            <p><b>Why should you consider VanillaJS</b></p>
+            <hr>
+            <img src="images/vanillin.png" class="right-float border" style="width: 200px;">
+            <ul>
+               <li class="space5">Trust</li>
+               <li class="space5">Upgrade Woes</li>
+               <li class="space5">Incompatible Dependencies</li>
+               <li class="space5">Project Bloat</li>
+               <li class="space5">Multiple Versions</li>
+               <li class="space5">Component Sadness</li>
+            </ul>
+
+
+         </div>
+         <div id="library-decision" class="step slide" data-x="-7500" data-y="9000">
             <p><b>When should you use a library?</b></p>
             <hr>
             <ul>
@@ -293,7 +317,7 @@ request.send();
                <li class="space10">Quick Prototyping</li>
                <li class="space10">Pure Magic?</li>
                <li class="space10">Heavy MV* Client App</li>
-               <li class="space10">Your library takes a dependency on another (bootstrap, backbone.js, ember.js, etc.)</li>
+               <li class="space10">Dependency</li>
             </ul>
 
          </div>         
@@ -481,8 +505,21 @@ Class.extend = function(props){
 };</div>
             <button id="btn-interfaces" class="btn btn-primary right">Run!</button>
          </div>
+         <div id="javascript-patterns-summay" class="step slide" data-x="0" data-y="-7500">
+            <p><b>Patterns Summary</b></p>
+            <hr>
+               <li class="space5">Use modules/namespaces</li>
+               <li class="space5">Favor Composition</li>               
+               <li class="space5">Consider Protoypes</li>
+               <li class="space5">Use revealing patterns for encapsulation</li>
+               <li class="space5">Polyfills are your friend</li>
+            </ul>
+         </div>
 
-         <div id="pulling-it-together" class="step slide" data-x="0" data-y="-7500">
+
+
+
+         <div id="pulling-it-together" class="step slide" data-x="0" data-y="-9000">
             <p><b>Building a Library</b></p>
             <hr>
             <div id="utoast-editor" class="code-editor">
@@ -566,11 +603,7 @@ button.addEventListener("click", function(){
             </ul>
 
          </div>
-
-			<div id="questions" class="step" data-x="3000" data-y="-4500">
-				<h5 style="width: 440px;font-size: 1000px;margin: auto;color:rgb(213, 213, 213);">?</h5>
-			</div>
-         <div id="poem" class="step" data-x="3000" data-y="3000">
+         <div id="poem" class="step" data-x="3000" data-y="-6000">
             <div style="font-size: 20pt">
              <b>Let</b> this long package float, <br>
              <b>Goto</b> private class if short.<br>
@@ -591,6 +624,10 @@ button.addEventListener("click", function(){
             <br>
             <div style="font-size: 10pt;float: right; vertical-align: top;">-Courtesy http://stackoverflow.com/questions/26255/reserved-keywords-in-javascript/12114140#12114140</div>
          </div>
+			<div id="questions" class="step" data-x="3000" data-y="-4500">
+				<h5 style="width: 440px;font-size: 1000px;margin: auto;color:rgb(213, 213, 213);">?</h5>
+			</div>
+         
 		</div>
 
 		<div class="hint">
@@ -658,6 +695,7 @@ button.addEventListener("click", function(){
             var iterationEditor = makeEditor('iteration-editor', true);
             var domEditor = makeEditor('dom-editor', true);
             var ajaxEditor = makeEditor('ajax-editor', true);
+            var eventEditor = makeEditor('event-editor', true);
             var animationEditor = makeEditor('animation-editor', false);
 				
 				var modulesEditor = makeEditor('modules-editor', true);
@@ -700,6 +738,10 @@ button.addEventListener("click", function(){
                scriptHoister(code);
             });
 
+            $('#btn-event').on('click', function(){
+               var code = eventEditor.getSession().getValue();
+               scriptHoister(code);
+            });
 
 
 				$('#btn-selectors').on('click', function(){
